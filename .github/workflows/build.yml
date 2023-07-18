@@ -130,9 +130,9 @@ jobs:
         export ANDROID_NDK_ROOT=${{ steps.setup-ndk.outputs.ndk-path }}
         git clone --recurse-submodules https://github.com/frida/frida
         cd frida
-        # cd frida-core
-        # git am ../../patchs/frida-core/*.patch
-        # cd ../
+        cd frida-core
+        git am ../../patchs/frida-core/*.patch
+        cd ../
         make core-android-arm
         make core-android-arm64
         make core-android-x86
