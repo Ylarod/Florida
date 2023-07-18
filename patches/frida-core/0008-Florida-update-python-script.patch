@@ -1,17 +1,17 @@
-From 6eecbc28f7d65091e13447716335f3e2e3c90af5 Mon Sep 17 00:00:00 2001
+From 3f427a1ee93de50ca0dcdf825cbeeefd61f14ccc Mon Sep 17 00:00:00 2001
 From: Ylarod <me@ylarod.cn>
 Date: Tue, 18 Jul 2023 19:55:59 +0800
 Subject: [PATCH 8/8] Florida: update python script
 
 ---
- src/anti-anti-frida.py | 59 ++++++++++++++++++++++++++++--------------
- 1 file changed, 40 insertions(+), 19 deletions(-)
+ src/anti-anti-frida.py | 59 +++++++++++++++++++++++++++++-------------
+ 1 file changed, 41 insertions(+), 18 deletions(-)
 
 diff --git a/src/anti-anti-frida.py b/src/anti-anti-frida.py
-index b4b8dca6..dac03a1a 100644
+index b4b8dca6..d1ce5f62 100644
 --- a/src/anti-anti-frida.py
 +++ b/src/anti-anti-frida.py
-@@ -2,36 +2,57 @@ import lief
+@@ -2,36 +2,59 @@ import lief
  import sys
  import random
  import os
@@ -28,16 +28,16 @@ index b4b8dca6..dac03a1a 100644
 -
 +    random_charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
 +    log_color(f"[*] Patch frida-agent: {input_file}")
-+    random_name = "".join(random.sample(random_charset, 5))
-+    log_color(f"[*] Patch `frida` to `{random_name}``")
-+ 
      binary = lief.parse(input_file)
 -
 + 
      if not binary:
++        log_color(f"[*] Not elf, exit")
          exit()
--
-+ 
++    
++    random_name = "".join(random.sample(random_charset, 5))
++    log_color(f"[*] Patch `frida` to `{random_name}`")
+ 
      for symbol in binary.symbols:
          if symbol.name == "frida_agent_main":
              symbol.name = "main"
@@ -53,14 +53,13 @@ index b4b8dca6..dac03a1a 100644
 + 
 +    all_patch_string = ["FridaScriptEngine", "GLib-GIO", "GDBusProxy", "GumScript"]  # 字符串特征修改 尽量与源字符一样
 +    for section in binary.sections:
-+        log_color(section.name)
 +        if section.name != ".rodata":
 +            continue
 +        for patch_str in all_patch_string:
 +            addr_all = section.search_all(patch_str)  # Patch 内存字符串
 +            for addr in addr_all:
 +                patch = [ord(n) for n in list(patch_str)[::-1]]
-+                log_color(f"current section name={section.name} offset={hex(section.file_offset + addr)} {patch_str}-{''.join(list(patch_str)[::-1])}")
++                log_color(f"[*] Patching section name={section.name} offset={hex(section.file_offset + addr)} orig:{patch_str} new:{''.join(list(patch_str)[::-1])}")
 +                binary.patch_address(section.file_offset + addr, patch)
 + 
      binary.write(input_file)
@@ -89,6 +88,8 @@ index b4b8dca6..dac03a1a 100644
 +    random_name = "".join(random.sample(random_charset, 5))
 +    log_color(f"[*] Patch `gdbus` to `{random_name}`")
 +    os.system(f"sed -b -i s/gdbus/{random_name}/g {input_file}")
++
++    log_color(f"[*] Patch Finish")
 \ No newline at end of file
 -- 
 2.34.1
