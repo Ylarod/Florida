@@ -129,7 +129,8 @@ jobs:
         git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
         export ANDROID_NDK_ROOT=${{ steps.setup-ndk.outputs.ndk-path }}
         git clone --recurse-submodules https://github.com/frida/frida
-        # cd frida/frida-core
+        cd frida
+        # cd frida-core
         # git am ../../patchs/frida-core/*.patch
         # cd ../
         make core-android-arm
