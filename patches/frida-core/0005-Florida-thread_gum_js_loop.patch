@@ -1,4 +1,4 @@
-From 8a73a9544dde4323c062beb19a681ae1fa391eec Mon Sep 17 00:00:00 2001
+From 90702fd82b7adbed8f712cf7b9dcb4f7d7f89b30 Mon Sep 17 00:00:00 2001
 From: Ylarod <me@ylarod.cn>
 Date: Tue, 18 Jul 2023 16:03:47 +0800
 Subject: [PATCH 5/7] Florida: thread_gum_js_loop
@@ -8,7 +8,7 @@ Subject: [PATCH 5/7] Florida: thread_gum_js_loop
  1 file changed, 6 insertions(+), 1 deletion(-)
 
 diff --git a/src/anti-anti-frida.py b/src/anti-anti-frida.py
-index 1b82fb03..4317e802 100644
+index a203189f..7a3f6474 100644
 --- a/src/anti-anti-frida.py
 +++ b/src/anti-anti-frida.py
 @@ -24,4 +24,9 @@ if __name__ == "__main__":

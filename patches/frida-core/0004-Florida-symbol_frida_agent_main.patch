@@ -1,4 +1,4 @@
-From 1ae7f840778edaa10439eb91a16b76c265f90b30 Mon Sep 17 00:00:00 2001
+From 1099700c48f5cf48f76792b929d5916be4a98e04 Mon Sep 17 00:00:00 2001
 From: Ylarod <me@ylarod.cn>
 Date: Tue, 18 Jul 2023 16:02:50 +0800
 Subject: [PATCH 4/7] Florida: symbol_frida_agent_main
@@ -32,7 +32,7 @@ index a8db6b29..afe514cb 100644
  
 diff --git a/src/anti-anti-frida.py b/src/anti-anti-frida.py
 new file mode 100644
-index 00000000..1b82fb03
+index 00000000..a203189f
 --- /dev/null
 +++ b/src/anti-anti-frida.py
 @@ -0,0 +1,27 @@
@@ -42,7 +42,7 @@ index 00000000..1b82fb03
 +import os
 +
 +if __name__ == "__main__":
-+    input_file = sys.arantigv[1]
++    input_file = sys.argv[1]
 +    print(f"[*] Patch frida-agent: {input_file}")
 +    random_name = "".join(random.sample("ABCDEFGHIJKLMNO", 5))
 +    print(f"[*] Patch `frida` to `{random_name}``")

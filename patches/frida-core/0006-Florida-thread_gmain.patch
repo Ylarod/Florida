@@ -1,4 +1,4 @@
-From 56deab59893a21265de02d291ee326fce0b5a7bf Mon Sep 17 00:00:00 2001
+From 93a07e8014d3c4971239ad6831aa5d526042a106 Mon Sep 17 00:00:00 2001
 From: Ylarod <me@ylarod.cn>
 Date: Tue, 18 Jul 2023 16:04:15 +0800
 Subject: [PATCH 6/7] Florida: thread_gmain
@@ -8,7 +8,7 @@ Subject: [PATCH 6/7] Florida: thread_gmain
  1 file changed, 6 insertions(+), 1 deletion(-)
 
 diff --git a/src/anti-anti-frida.py b/src/anti-anti-frida.py
-index 4317e802..f040406b 100644
+index 7a3f6474..b4b8dca6 100644
 --- a/src/anti-anti-frida.py
 +++ b/src/anti-anti-frida.py
 @@ -29,4 +29,9 @@ if __name__ == "__main__":
