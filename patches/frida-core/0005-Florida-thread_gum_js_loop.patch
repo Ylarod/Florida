@@ -1,7 +1,7 @@
 From 90702fd82b7adbed8f712cf7b9dcb4f7d7f89b30 Mon Sep 17 00:00:00 2001
 From: Ylarod <me@ylarod.cn>
 Date: Tue, 18 Jul 2023 16:03:47 +0800
-Subject: [PATCH 5/7] Florida: thread_gum_js_loop
+Subject: [PATCH 5/8] Florida: thread_gum_js_loop
 
 ---
  src/anti-anti-frida.py | 7 ++++++-
