@@ -23,6 +23,7 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
+            const { GitHub } = require('@actions/github/lib/utils');
             const releaseResponse = await GitHub.repos.getLatestRelease({
               owner: 'frida',
               repo: 'frida',
@@ -46,6 +47,7 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
+            const { GitHub } = require('@actions/github/lib/utils');
             try {
               const releaseVersion = '${{ steps.pullFridaLatestRelease.outputs.FRIDA_VERSION }}'
               const releaseResponse = await GitHub.repos.getReleaseByTag({
@@ -151,6 +153,7 @@ jobs:
       with:
         github-token: ${{secrets.GITHUB_TOKEN}}
         script: |
+          const { GitHub } = require('@actions/github/lib/utils');
           try {
             const releaseVersion = '${{ needs.check_version.outputs.FRIDA_VERSION }}'
             const releaseResponse = await GitHub.repos.getReleaseByTag({
