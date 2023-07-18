@@ -1,0 +1,25 @@
+From 3f729d795063022a7136139c78fc3788d091c158 Mon Sep 17 00:00:00 2001
+From: hluwa <hluwa888@gmail.com>
+Date: Mon, 16 Aug 2021 10:55:11 +0800
+Subject: [PATCH 6/8] strongR-frida: thread_gum_js_loop
+
+---
+ src/anti-anti-frida.py | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/src/anti-anti-frida.py b/src/anti-anti-frida.py
+index d30168d6..b6a8e1aa 100644
+--- a/src/anti-anti-frida.py
++++ b/src/anti-anti-frida.py
+@@ -25,3 +25,8 @@ if __name__ == "__main__":
+             symbol.name = symbol.name.replace("FRIDA", random_name)
+ 
+     binary.write(input_file)
++
++    # gum-js-loop thread
++    random_name = "".join(random.sample("abcdefghijklmn", 11))
++    print(f"[*] Patch `gum-js-loop` to `{random_name}`")
++    os.system(f"sed -b -i s/gum-js-loop/{random_name}/g {input_file}")
+-- 
+2.30.2
+

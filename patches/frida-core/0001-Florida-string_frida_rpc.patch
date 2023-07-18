@@ -1,0 +1,63 @@
+From 595cb1bebc6954207ddf56ca1e21b49d8b01f427 Mon Sep 17 00:00:00 2001
+From: Ylarod <me@ylarod.cn>
+Date: Tue, 18 Jul 2023 15:51:29 +0800
+Subject: [PATCH 1/7] Florida: string_frida_rpc
+
+---
+ lib/base/rpc.vala | 20 +++++++++++++++++---
+ 1 file changed, 17 insertions(+), 3 deletions(-)
+
+diff --git a/lib/base/rpc.vala b/lib/base/rpc.vala
+index 3695ba8c..e5eddf0d 100644
+--- a/lib/base/rpc.vala
++++ b/lib/base/rpc.vala
+@@ -11,13 +11,27 @@ namespace Frida {
+ 			Object (peer: peer);
+ 		}
+ 
++		public string getRpcStr(bool quote){
++			char[] encryptedString = {0x6f, 0x7b, 0x60, 0x6d, 0x68, 0x33, 0x7b, 0x79, 0x6a};
++			string result = "";
++			for (int i = 0; i < encryptedString.length; i++) {
++				char decryptedChar = encryptedString[i] ^ 9;
++				result += decryptedChar;
++			}
++			if(quote){
++				return "\"" + result + "\""
++			}else{
++				return result;
++			}
++		}
++
+ 		public async Json.Node call (string method, Json.Node[] args, Cancellable? cancellable) throws Error, IOError {
+ 			string request_id = Uuid.string_random ();
+ 
+ 			var request = new Json.Builder ();
+ 			request
+ 				.begin_array ()
+-				.add_string_value ("frida:rpc")
++				.add_string_value (getRpcStr(false))
+ 				.add_string_value (request_id)
+ 				.add_string_value ("call")
+ 				.add_string_value (method)
+@@ -70,7 +84,7 @@ namespace Frida {
+ 		}
+ 
+ 		public bool try_handle_message (string json) {
+-			if (json.index_of ("\"frida:rpc\"") == -1)
++			if (json.index_of (getRpcStr(true)) == -1)
+ 				return false;
+ 
+ 			var parser = new Json.Parser ();
+@@ -99,7 +113,7 @@ namespace Frida {
+ 				return false;
+ 
+ 			string? type = rpc_message.get_element (0).get_string ();
+-			if (type == null || type != "frida:rpc")
++			if (type == null || type != getRpcStr(false))
+ 				return false;
+ 
+ 			var request_id_value = rpc_message.get_element (1);
+-- 
+2.34.1
+
