@@ -23,7 +23,7 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            const releaseResponse = await github.repos.getLatestRelease({
+            const releaseResponse = await GitHub.repos.getLatestRelease({
               owner: 'frida',
               repo: 'frida',
             })
@@ -48,7 +48,7 @@ jobs:
           script: |
             try {
               const releaseVersion = '${{ steps.pullFridaLatestRelease.outputs.FRIDA_VERSION }}'
-              const releaseResponse = await github.repos.getReleaseByTag({
+              const releaseResponse = await GitHub.repos.getReleaseByTag({
                 owner: '${{ steps.split_name.outputs.owner }}',
                 repo: '${{ steps.split_name.outputs.repo }}',
                 tag: releaseVersion
@@ -153,7 +153,7 @@ jobs:
         script: |
           try {
             const releaseVersion = '${{ needs.check_version.outputs.FRIDA_VERSION }}'
-            const releaseResponse = await github.repos.getReleaseByTag({
+            const releaseResponse = await GitHub.repos.getReleaseByTag({
               owner: '${{ steps.split_name.outputs.owner }}',
               repo: '${{ steps.split_name.outputs.repo }}',
               tag: releaseVersion
