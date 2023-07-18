@@ -1,4 +1,4 @@
-From 7c18e0997c5ba8dd8fcc72aed18d2a3531f37a6d Mon Sep 17 00:00:00 2001
+From 9c54a36d6cf608cbe24c9771b4a4f2b3774bebd0 Mon Sep 17 00:00:00 2001
 From: Ylarod <me@ylarod.cn>
 Date: Tue, 18 Jul 2023 15:52:56 +0800
 Subject: [PATCH 2/7] Florida: re_frida_server
@@ -8,7 +8,7 @@ Subject: [PATCH 2/7] Florida: re_frida_server
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/server/server.vala b/server/server.vala
-index f96c7ca5..2658d24f 100644
+index f96c7ca5..dc6ff452 100644
 --- a/server/server.vala
 +++ b/server/server.vala
 @@ -1,7 +1,7 @@
@@ -16,7 +16,7 @@ index f96c7ca5..2658d24f 100644
  	private static Application application;
  
 -	private const string DEFAULT_DIRECTORY = "re.frida.server";
-+	private const string DEFAULT_DIRECTORY = null;
++	private static string DEFAULT_DIRECTORY = null;
  	private static bool output_version = false;
  	private static string? listen_address = null;
  	private static string? certpath = null;
