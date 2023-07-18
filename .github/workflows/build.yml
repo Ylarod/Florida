@@ -19,7 +19,7 @@ jobs:
     steps:
       - name: Pull Frida Latest Release
         id: pullFridaLatestRelease
-        uses: actions/github-script@v3.1.0
+        uses: actions/github-script@v6.4.1
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
@@ -42,7 +42,7 @@ jobs:
 
       - name: Check release version
         id: checkReleaseVersion
-        uses: actions/github-script@v3.1.0
+        uses: actions/github-script@v6.4.1
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
@@ -147,7 +147,7 @@ jobs:
 
     - name: Check release version
       id: checkReleaseVersion
-      uses: actions/github-script@v3.1.0
+      uses: actions/github-script@v6.4.1
       with:
         github-token: ${{secrets.GITHUB_TOKEN}}
         script: |
