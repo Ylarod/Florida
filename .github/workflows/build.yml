@@ -4,6 +4,10 @@ on:
   schedule:
     - cron: "0 9/12 * * *"
   workflow_dispatch:
+  push:
+    branches: ["main", "ci"]
+    paths:
+      - ".github/workflows/build.yml"
 
 jobs: 
   check_version:
@@ -28,6 +32,14 @@ jobs:
             } = releaseResponse;
             core.setOutput('FRIDA_VERSION', ver);
 
+      - name: Split Repository Name
+        id: split_name
+        run: |
+          repo_name=${{ github.repository }}
+          IFS='/' read -ra repo_parts <<< "$repo_name"
+          echo "::set-output name=owner::${repo_parts[0]}"
+          echo "::set-output name=repo::${repo_parts[1]}"
+
       - name: Check release version
         id: checkReleaseVersion
         uses: actions/github-script@v3.1.0
@@ -37,8 +49,8 @@ jobs:
             try {
               const releaseVersion = '${{ steps.pullFridaLatestRelease.outputs.FRIDA_VERSION }}'
               const releaseResponse = await github.repos.getReleaseByTag({
-                owner: '${{ github.repository_owner }}',
-                repo: '${{ github.repository#*/ }}',
+                owner: '${{ steps.split_name.outputs.owner }}',
+                repo: '${{ steps.split_name.outputs.repo }}',
                 tag: releaseVersion
               });
               const {
@@ -124,7 +136,14 @@ jobs:
         make core-android-arm64
         make core-android-x86
         make core-android-x86_64
-
+    
+    - name: Split Repository Name
+      id: split_name
+      run: |
+        repo_name=${{ github.repository }}
+        IFS='/' read -ra repo_parts <<< "$repo_name"
+        echo "::set-output name=owner::${repo_parts[0]}"
+        echo "::set-output name=repo::${repo_parts[1]}"
 
     - name: Check release version
       id: checkReleaseVersion
@@ -135,8 +154,8 @@ jobs:
           try {
             const releaseVersion = '${{ needs.check_version.outputs.FRIDA_VERSION }}'
             const releaseResponse = await github.repos.getReleaseByTag({
-              owner: '${{ github.repository_owner }}',
-              repo: '${{ github.repository#*/ }}',
+              owner: '${{ steps.split_name.outputs.owner }}',
+              repo: '${{ steps.split_name.outputs.repo }}',
               tag: releaseVersion
             })
             const {
