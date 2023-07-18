@@ -23,7 +23,7 @@ index 3695ba8c..e5eddf0d 100644
 +				result += decryptedChar;
 +			}
 +			if(quote){
-+				return "\"" + result + "\""
++				return "\"" + result + "\"";
 +			}else{
 +				return result;
 +			}
