@@ -8,7 +8,7 @@ on:
     branches: ["main", "ci"]
     paths:
       - ".github/workflows/build.yml"
-      - "patches"
+      - "patches/**"
 
 jobs: 
   check_version:
