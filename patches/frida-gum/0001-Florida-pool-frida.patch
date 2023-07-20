@@ -1,0 +1,25 @@
+From 649c04e3fb19596621f347d05c45c8c30d1a0fa7 Mon Sep 17 00:00:00 2001
+From: Ylarod <me@ylarod.cn>
+Date: Thu, 20 Jul 2023 10:26:34 +0800
+Subject: [PATCH] Florida: pool-frida
+
+---
+ gum/gum.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/gum/gum.c b/gum/gum.c
+index f6e6243f..3305f629 100644
+--- a/gum/gum.c
++++ b/gum/gum.c
+@@ -304,7 +304,7 @@ gum_init_embedded (void)
+   g_log_set_default_handler (gum_on_log_message, NULL);
+   gum_do_init ();
+ 
+-  g_set_prgname ("frida");
++  g_set_prgname ("ggbond");
+ 
+ #if defined (HAVE_LINUX) && defined (HAVE_GLIBC)
+   gum_libdl_prevent_unload ();
+-- 
+2.34.1
+
