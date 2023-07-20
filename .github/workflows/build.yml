@@ -58,7 +58,11 @@ jobs:
                 data: { tag_name: ver }
               } = releaseResponse;
               if (ver == '${{ steps.pullFridaLatestRelease.outputs.FRIDA_VERSION }}'){
-                  core.setOutput('ALREADY_RELEASE', '1');
+                  if ( ${{ ( github.event_name == 'push' || github.event_name == 'workflow_dispatch') }}){
+                    core.setOutput('ALREADY_RELEASE', '2');
+                  } else {
+                    core.setOutput('ALREADY_RELEASE', '1');
+                  }
               }
               else{
                   core.setOutput('ALREADY_RELEASE', '0');
@@ -71,11 +75,19 @@ jobs:
                 core.setFailed(e.message);
               }
             }
+      
+      - name: Delete release
+        if: ${{ steps.checkReleaseVersion.outputs.ALREADY_RELEASE == '2' }}
+        uses: dev-drprasad/delete-tag-and-release@v1.0
+        with:
+          tag_name: ${{ steps.pullFridaLatestRelease.outputs.FRIDA_VERSION }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          delete_release: true
 
   create_release:
     needs: check_version
     runs-on: ubuntu-22.04
-    if: needs.check_version.outputs.ALREADY_RELEASE == '0'
+    if: needs.check_version.outputs.ALREADY_RELEASE != '1'
 
     steps:
       - uses: actions/create-release@master
