@@ -1,7 +1,7 @@
 From 2ee45f8d8bd12ae7bb58bc9d792241dd10e52c9d Mon Sep 17 00:00:00 2001
 From: Ylarod <me@ylarod.cn>
 Date: Tue, 18 Jul 2023 15:51:29 +0800
-Subject: [PATCH 1/9] Florida: string_frida_rpc
+Subject: [PATCH 01/10] Florida: string_frida_rpc
 
 ---
  lib/base/rpc.vala | 15 ++++++++++++---

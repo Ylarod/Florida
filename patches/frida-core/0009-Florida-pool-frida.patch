@@ -1,7 +1,7 @@
 From f7e11d47f9f3060733ac3dd418718366631c5bcb Mon Sep 17 00:00:00 2001
 From: Ylarod <me@ylarod.cn>
 Date: Thu, 20 Jul 2023 10:01:20 +0800
-Subject: [PATCH 9/9] Florida: pool-frida
+Subject: [PATCH 09/10] Florida: pool-frida
 
 ---
  src/frida-glue.c | 2 +-
