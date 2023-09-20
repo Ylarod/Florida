@@ -8,7 +8,7 @@ Follow [FRIDA](https://github.com/frida/frida) upstream to automatic patch and b
 
 ## Download
 
-[Latest Release](https://github.com/hzzheyang/strongR-frida-android/releases/latest)
+[Latest Release](https://github.com/Ylarod/Florida/releases/latest)
 
 ## References
 
