@@ -153,10 +153,10 @@ jobs:
           cd ..
           echo $i
         done
-        make core-android-arm
-        make core-android-arm64
-        make core-android-x86
-        make core-android-x86_64
+        make core-android-arm || cat build/tmp-android-arm/frida-gum/meson-logs/meson-log.txt
+        make core-android-arm64 || cat build/tmp-android-arm64/frida-gum/meson-logs/meson-log.txt
+        make core-android-x86 || cat build/tmp-android-x86/frida-gum/meson-logs/meson-log.txt
+        make core-android-x86_64 || cat build/tmp-android-x86_64/frida-gum/meson-logs/meson-log.txt
     
     - name: Split Repository Name
       id: split_name
