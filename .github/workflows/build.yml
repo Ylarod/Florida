@@ -141,6 +141,7 @@ jobs:
         git config --global user.name "GitHub Actions"
         git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
         export ANDROID_NDK_ROOT=${{ steps.setup-ndk.outputs.ndk-path }}
+        tree $ANDROID_NDK_ROOT
         git clone --recurse-submodules https://github.com/frida/frida
         cd frida
         for path in ../patches/*
@@ -153,10 +154,10 @@ jobs:
           cd ..
           echo $i
         done
-        make core-android-arm || cat build/tmp-android-arm/frida-gum/meson-logs/meson-log.txt
-        make core-android-arm64 || cat build/tmp-android-arm64/frida-gum/meson-logs/meson-log.txt
-        make core-android-x86 || cat build/tmp-android-x86/frida-gum/meson-logs/meson-log.txt
-        make core-android-x86_64 || cat build/tmp-android-x86_64/frida-gum/meson-logs/meson-log.txt
+        make core-android-arm
+        make core-android-arm64
+        make core-android-x86
+        make core-android-x86_64
     
     - name: Split Repository Name
       id: split_name
