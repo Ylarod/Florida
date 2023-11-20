@@ -1,4 +1,4 @@
-From 3f427a1ee93de50ca0dcdf825cbeeefd61f14ccc Mon Sep 17 00:00:00 2001
+From f0cea5f7ffac814fc1aed478247c1f8b8190c180 Mon Sep 17 00:00:00 2001
 From: Ylarod <me@ylarod.cn>
 Date: Tue, 18 Jul 2023 19:55:59 +0800
 Subject: [PATCH 08/10] Florida: update python script
@@ -92,5 +92,5 @@ index b4b8dca6..d1ce5f62 100644
 +    log_color(f"[*] Patch Finish")
 \ No newline at end of file
 -- 
-2.34.1
+2.39.3 (Apple Git-145)
 

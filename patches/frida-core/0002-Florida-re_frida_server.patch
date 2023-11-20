@@ -1,4 +1,4 @@
-From 9c54a36d6cf608cbe24c9771b4a4f2b3774bebd0 Mon Sep 17 00:00:00 2001
+From 3abc151103db6b7ac3c971a5dfc5f90299d3932f Mon Sep 17 00:00:00 2001
 From: Ylarod <me@ylarod.cn>
 Date: Tue, 18 Jul 2023 15:52:56 +0800
 Subject: [PATCH 02/10] Florida: re_frida_server
@@ -8,7 +8,7 @@ Subject: [PATCH 02/10] Florida: re_frida_server
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/server/server.vala b/server/server.vala
-index f96c7ca5..dc6ff452 100644
+index 525c145e..f7547819 100644
 --- a/server/server.vala
 +++ b/server/server.vala
 @@ -1,7 +1,7 @@
@@ -29,5 +29,5 @@ index f96c7ca5..dc6ff452 100644
  
  #if DARWIN
 -- 
-2.34.1
+2.39.3 (Apple Git-145)
 

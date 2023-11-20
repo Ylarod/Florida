@@ -1,4 +1,4 @@
-From 1099700c48f5cf48f76792b929d5916be4a98e04 Mon Sep 17 00:00:00 2001
+From 36f933383018c359a04d5772806d88ba686f4067 Mon Sep 17 00:00:00 2001
 From: Ylarod <me@ylarod.cn>
 Date: Tue, 18 Jul 2023 16:02:50 +0800
 Subject: [PATCH 04/10] Florida: symbol_frida_agent_main
@@ -7,14 +7,14 @@ Subject: [PATCH 04/10] Florida: symbol_frida_agent_main
  src/agent-container.vala              |  2 +-
  src/anti-anti-frida.py                | 27 +++++++++++++++++++++++++++
  src/darwin/darwin-host-session.vala   |  2 +-
- src/embed-agent.sh                    | 10 ++++++++++
+ src/embed-agent.sh                    |  8 ++++++++
  src/freebsd/freebsd-host-session.vala |  2 +-
  src/linux/linux-host-session.vala     |  2 +-
  src/qnx/qnx-host-session.vala         |  2 +-
  src/windows/windows-host-session.vala |  2 +-
  tests/test-agent.vala                 |  2 +-
  tests/test-injector.vala              |  2 +-
- 10 files changed, 45 insertions(+), 8 deletions(-)
+ 10 files changed, 43 insertions(+), 8 deletions(-)
  create mode 100644 src/anti-anti-frida.py
 
 diff --git a/src/agent-container.vala b/src/agent-container.vala
@@ -65,10 +65,10 @@ index 00000000..a203189f
 +    binary.write(input_file)
 \ No newline at end of file
 diff --git a/src/darwin/darwin-host-session.vala b/src/darwin/darwin-host-session.vala
-index 06e7065b..d215b75a 100644
+index ab9b2900..4369922d 100644
 --- a/src/darwin/darwin-host-session.vala
 +++ b/src/darwin/darwin-host-session.vala
-@@ -354,7 +354,7 @@ namespace Frida {
+@@ -381,7 +381,7 @@ namespace Frida {
  		private async uint inject_agent (uint pid, string agent_parameters, Cancellable? cancellable) throws Error, IOError {
  			uint id;
  
@@ -78,30 +78,28 @@ index 06e7065b..d215b75a 100644
  			id = yield fruitjector.inject_library_resource (pid, agent, entrypoint, agent_parameters, cancellable);
  #else
 diff --git a/src/embed-agent.sh b/src/embed-agent.sh
-index 6119b5e1..7eede250 100755
+index 6a3bf9ed..e6a69e41 100755
 --- a/src/embed-agent.sh
 +++ b/src/embed-agent.sh
-@@ -10,6 +10,7 @@ resource_compiler=$7
- resource_config=$8
- lipo=$9
+@@ -12,6 +12,7 @@ lipo=$9
+ agent_dbghelp_prefix=${10}
+ agent_symsrv_prefix=${11}
  
 +custom_script="$output_dir/../../../../frida-core/src/anti-anti-frida.py"
  priv_dir="$output_dir/frida-agent@emb"
  
  mkdir -p "$priv_dir"
-@@ -22,6 +23,11 @@ collect_generic_agent ()
+@@ -41,6 +42,9 @@ collect_unix_agent ()
    else
      touch "$embedded_agent"
    fi
-+  
 +  if [ -f "$custom_script" ]; then
 +    python3 "$custom_script" "$embedded_agent"
 +  fi
-+
-   embedded_agents+=("$embedded_agent")
+   embedded_assets+=("$embedded_agent")
  }
  
-@@ -54,6 +60,10 @@ case $host_os in
+@@ -81,6 +85,10 @@ case $host_os in
        exit 1
      fi
  
@@ -191,5 +189,5 @@ index f4a321c4..448bddf3 100644
  				printerr ("\nFAIL: %s\n\n", e.message);
  				assert_not_reached ();
 -- 
-2.34.1
+2.39.3 (Apple Git-145)
 
