@@ -1,7 +1,7 @@
-From 36f933383018c359a04d5772806d88ba686f4067 Mon Sep 17 00:00:00 2001
+From 32ec17a186c957fb4c5a3198655767a2bd442fc4 Mon Sep 17 00:00:00 2001
 From: Ylarod <me@ylarod.cn>
 Date: Tue, 18 Jul 2023 16:02:50 +0800
-Subject: [PATCH 04/10] Florida: symbol_frida_agent_main
+Subject: [PATCH 3/9] Florida: symbol_frida_agent_main
 
 ---
  src/agent-container.vala              |  2 +-

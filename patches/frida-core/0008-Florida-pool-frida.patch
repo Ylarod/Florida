@@ -1,0 +1,25 @@
+From c209740d0a3afb95444f49dc542088a81b55d042 Mon Sep 17 00:00:00 2001
+From: Ylarod <me@ylarod.cn>
+Date: Thu, 20 Jul 2023 10:01:20 +0800
+Subject: [PATCH 8/9] Florida: pool-frida
+
+---
+ src/frida-glue.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/src/frida-glue.c b/src/frida-glue.c
+index ee8f0737..43cc8167 100644
+--- a/src/frida-glue.c
++++ b/src/frida-glue.c
+@@ -40,6 +40,8 @@ frida_init_with_runtime (FridaRuntime rt)
+     g_io_module_openssl_register ();
+ #endif
+ 
++    g_set_prgname ("ggbond");
++
+     if (runtime == FRIDA_RUNTIME_OTHER)
+     {
+       main_context = g_main_context_ref (g_main_context_default ());
+-- 
+2.39.3 (Apple Git-145)
+

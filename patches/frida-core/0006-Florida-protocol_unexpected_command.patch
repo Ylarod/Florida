@@ -1,7 +1,7 @@
-From 0561228bc0dde4dd62af2feceff1a09e9d38f9cd Mon Sep 17 00:00:00 2001
+From 6d24d91ee0bbba3cbd288e1c37c1c6b5f87f1af8 Mon Sep 17 00:00:00 2001
 From: Ylarod <me@ylarod.cn>
 Date: Tue, 18 Jul 2023 16:04:55 +0800
-Subject: [PATCH 07/10] Florida: protocol_unexpected_command
+Subject: [PATCH 6/9] Florida: protocol_unexpected_command
 
 ---
  src/droidy/droidy-client.vala | 2 +-
