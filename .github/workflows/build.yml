@@ -155,7 +155,7 @@ jobs:
         done
         cd ..
         ARCHES="android-arm android-arm64 android-x86 android-x86_64"
-        for ARCH in ARCHES
+        for ARCH in $ARCHES
         do
           mkdir build-$ARCH
           cd build-$ARCH
