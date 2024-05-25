@@ -159,7 +159,7 @@ jobs:
         do
           mkdir build-$ARCH
           cd build-$ARCH
-          ./configure --host=$ARCH
+          ../frida/configure --host=$ARCH
           make
           cd ..
         done
