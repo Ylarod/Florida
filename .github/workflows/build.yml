@@ -121,7 +121,7 @@ jobs:
       id: setup-ndk
       uses: nttld/setup-ndk@v1
       with:
-        ndk-version: r25c
+        ndk-version: r25b
         local-cache: true
 
     - name: Set up Python 3.9
@@ -140,7 +140,11 @@ jobs:
       run: |
         git config --global user.name "GitHub Actions"
         git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        
         export ANDROID_NDK_ROOT=${{ steps.setup-ndk.outputs.ndk-path }}
+        echo "ANDROID_NDK_ROOT=$ANDROID_NDK_ROOT"
+        tree $ANDROID_NDK_ROOT
+        
         git clone --recurse-submodules https://github.com/frida/frida
         cd frida
         for path in ../patches/*
@@ -154,6 +158,7 @@ jobs:
           echo $i
         done
         cd ..
+        
         ARCHES="android-arm android-arm64 android-x86 android-x86_64"
         for ARCH in $ARCHES
         do
