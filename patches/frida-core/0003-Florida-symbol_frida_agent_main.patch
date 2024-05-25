@@ -1,4 +1,4 @@
-From 32ec17a186c957fb4c5a3198655767a2bd442fc4 Mon Sep 17 00:00:00 2001
+From e108bdb7be0e5756a613fbe1162f07a8623da327 Mon Sep 17 00:00:00 2001
 From: Ylarod <me@ylarod.cn>
 Date: Tue, 18 Jul 2023 16:02:50 +0800
 Subject: [PATCH 3/9] Florida: symbol_frida_agent_main
@@ -7,22 +7,21 @@ Subject: [PATCH 3/9] Florida: symbol_frida_agent_main
  src/agent-container.vala              |  2 +-
  src/anti-anti-frida.py                | 27 +++++++++++++++++++++++++++
  src/darwin/darwin-host-session.vala   |  2 +-
- src/embed-agent.sh                    |  8 ++++++++
  src/freebsd/freebsd-host-session.vala |  2 +-
  src/linux/linux-host-session.vala     |  2 +-
  src/qnx/qnx-host-session.vala         |  2 +-
  src/windows/windows-host-session.vala |  2 +-
  tests/test-agent.vala                 |  2 +-
  tests/test-injector.vala              |  2 +-
- 10 files changed, 43 insertions(+), 8 deletions(-)
+ 9 files changed, 35 insertions(+), 8 deletions(-)
  create mode 100644 src/anti-anti-frida.py
 
 diff --git a/src/agent-container.vala b/src/agent-container.vala
-index a8db6b29..afe514cb 100644
+index 73e0c017..a3db1112 100644
 --- a/src/agent-container.vala
 +++ b/src/agent-container.vala
-@@ -25,7 +25,7 @@ namespace Frida {
- 			assert (container.module != null);
+@@ -28,7 +28,7 @@ namespace Frida {
+ 			}
  
  			void * main_func_symbol;
 -			var main_func_found = container.module.symbol ("frida_agent_main", out main_func_symbol);
@@ -77,39 +76,6 @@ index ab9b2900..4369922d 100644
  #if HAVE_EMBEDDED_ASSETS
  			id = yield fruitjector.inject_library_resource (pid, agent, entrypoint, agent_parameters, cancellable);
  #else
-diff --git a/src/embed-agent.sh b/src/embed-agent.sh
-index 6a3bf9ed..e6a69e41 100755
---- a/src/embed-agent.sh
-+++ b/src/embed-agent.sh
-@@ -12,6 +12,7 @@ lipo=$9
- agent_dbghelp_prefix=${10}
- agent_symsrv_prefix=${11}
- 
-+custom_script="$output_dir/../../../../frida-core/src/anti-anti-frida.py"
- priv_dir="$output_dir/frida-agent@emb"
- 
- mkdir -p "$priv_dir"
-@@ -41,6 +42,9 @@ collect_unix_agent ()
-   else
-     touch "$embedded_agent"
-   fi
-+  if [ -f "$custom_script" ]; then
-+    python3 "$custom_script" "$embedded_agent"
-+  fi
-   embedded_assets+=("$embedded_agent")
- }
- 
-@@ -81,6 +85,10 @@ case $host_os in
-       exit 1
-     fi
- 
-+    if [ -f "$custom_script" ]; then
-+      python3 "$custom_script" "$embedded_agent"
-+    fi
-+
-     exec "$resource_compiler" --toolchain=gnu -c "$resource_config" -o "$output_dir/frida-data-agent" "$embedded_agent"
-     ;;
-   *)
 diff --git a/src/freebsd/freebsd-host-session.vala b/src/freebsd/freebsd-host-session.vala
 index a2204a4e..eac16116 100644
 --- a/src/freebsd/freebsd-host-session.vala
@@ -163,11 +129,11 @@ index 67f1f3ef..518cd256 100644
  			injectee_by_pid[pid] = id;
  
 diff --git a/tests/test-agent.vala b/tests/test-agent.vala
-index 62fb8260..6e5eba51 100644
+index d28e67fd..bbdc29b3 100644
 --- a/tests/test-agent.vala
 +++ b/tests/test-agent.vala
-@@ -449,7 +449,7 @@ Interceptor.attach(Module.getExportByName('libsystem_kernel.dylib', 'open'), ()
- 			assert_nonnull (module);
+@@ -452,7 +452,7 @@ Interceptor.attach(Module.getExportByName('libsystem_kernel.dylib', 'open'), ()
+ 			}
  
  			void * main_func_symbol;
 -			var main_func_found = module.symbol ("frida_agent_main", out main_func_symbol);
@@ -176,7 +142,7 @@ index 62fb8260..6e5eba51 100644
  			main_impl = (AgentMainFunc) main_func_symbol;
  
 diff --git a/tests/test-injector.vala b/tests/test-injector.vala
-index f4a321c4..448bddf3 100644
+index 03c219e6..a7720c3d 100644
 --- a/tests/test-injector.vala
 +++ b/tests/test-injector.vala
 @@ -258,7 +258,7 @@ namespace Frida.InjectorTest {
@@ -189,5 +155,5 @@ index f4a321c4..448bddf3 100644
  				printerr ("\nFAIL: %s\n\n", e.message);
  				assert_not_reached ();
 -- 
-2.39.3 (Apple Git-145)
+2.42.0
 
