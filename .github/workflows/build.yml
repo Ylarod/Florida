@@ -147,10 +147,10 @@ jobs:
         do
           name=$(basename $path)
           real=$(realpath $path)
-          echo "Apply patches in $real to frida/$name"
-          cd $name
+          echo "Apply patches in $real to frida/subprojects/$name"
+          cd subprojects/$name
           git am ../../patches/$name/*.patch
-          cd ..
+          cd ../..
           echo $i
         done
         make core-android-arm
