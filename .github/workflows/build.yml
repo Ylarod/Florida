@@ -133,7 +133,7 @@ jobs:
       run: |
         sudo apt-get update && DEBIAN_FRONTEND=noninteractive sudo apt-get install build-essential tree ninja-build gcc-multilib g++-multilib lib32stdc++-9-dev flex bison ruby ruby-dev python3-requests python3-setuptools python3-dev python3-pip libc6-dev libc6-dev-i386 -y
         sudo gem install fpm -v 1.11.0 --no-document
-        python3 -m pip install lief
+        python3 -m pip install lief graphlib
 
     - name: build frida for Android
       shell: bash
