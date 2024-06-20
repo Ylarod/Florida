@@ -122,7 +122,8 @@ jobs:
       uses: nttld/setup-ndk@v1
       with:
         ndk-version: r25b
-        local-cache: true
+        local-cache: false
+        link-to-sdk: true
 
     - name: Set up Python 3.9
       uses: actions/setup-python@v4
