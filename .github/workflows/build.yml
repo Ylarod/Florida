@@ -90,14 +90,14 @@ jobs:
     if: needs.check_version.outputs.ALREADY_RELEASE != '1'
 
     steps:
-      - uses: actions/create-release@master
+      - uses: softprops/action-gh-release@v2.1.0
         id: createRelease
         name: Create Runner Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: "${{ needs.check_version.outputs.FRIDA_VERSION }}"
-          release_name: "${{ needs.check_version.outputs.FRIDA_VERSION }}"
+          name: "${{ needs.check_version.outputs.FRIDA_VERSION }}"
           prerelease: false
 
   android_build:
