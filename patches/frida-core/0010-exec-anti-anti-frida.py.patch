@@ -1,0 +1,31 @@
+From 09c74884dda5e9a5d452a7d5b78eb1c3e8a717c9 Mon Sep 17 00:00:00 2001
+From: Thiasap <you@example.com>
+Date: Mon, 9 Dec 2024 16:28:59 +0800
+Subject: [PATCH] exec anti-anti-frida.py
+
+---
+ src/embed-agent.py | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/src/embed-agent.py b/src/embed-agent.py
+index 1cdd46da..4459b9c1 100644
+--- a/src/embed-agent.py
++++ b/src/embed-agent.py
+@@ -78,6 +78,14 @@ def main(argv):
+                 shutil.copy(agent, embedded_agent)
+             else:
+                 embedded_agent.write_bytes(b"")
++            import os
++            custom_script=str(output_dir)+"/../../../../frida/subprojects/frida-core/src/anti-anti-frida.py"
++            return_code = os.system("python3 "+custom_script+" "+str(priv_dir / f"frida-agent-{flavor}.so"))
++            if return_code == 0:
++                print("anti-anti-frida finished")
++            else:
++                print("anti-anti-frida error. Code:", return_code)
++            
+             embedded_assets += [embedded_agent]
+     elif host_os in {"freebsd", "qnx"}:
+         embedded_agent = priv_dir / "frida-agent.so"
+-- 
+2.34.1
+
