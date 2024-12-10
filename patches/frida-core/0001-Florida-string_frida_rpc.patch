@@ -1,4 +1,4 @@
-From d7201c32bd8cf347cacd7427a942e0e0188045a1 Mon Sep 17 00:00:00 2001
+From 9ff24d5b1b81bf5a2fc8ff517bc0caba0e3288e9 Mon Sep 17 00:00:00 2001
 From: Ylarod <me@ylarod.cn>
 Date: Tue, 18 Jul 2023 15:51:29 +0800
 Subject: [PATCH 1/9] Florida: string_frida_rpc
@@ -8,7 +8,7 @@ Subject: [PATCH 1/9] Florida: string_frida_rpc
  1 file changed, 12 insertions(+), 3 deletions(-)
 
 diff --git a/lib/base/rpc.vala b/lib/base/rpc.vala
-index 3695ba8c..664bd19c 100644
+index 8990b70e..d5acfebd 100644
 --- a/lib/base/rpc.vala
 +++ b/lib/base/rpc.vala
 @@ -11,13 +11,22 @@ namespace Frida {
@@ -24,7 +24,7 @@ index 3695ba8c..664bd19c 100644
 +			}
 +		}
 +
- 		public async Json.Node call (string method, Json.Node[] args, Cancellable? cancellable) throws Error, IOError {
+ 		public async Json.Node call (string method, Json.Node[] args, Bytes? data, Cancellable? cancellable) throws Error, IOError {
  			string request_id = Uuid.string_random ();
  
  			var request = new Json.Builder ();
@@ -54,5 +54,5 @@ index 3695ba8c..664bd19c 100644
  
  			var request_id_value = rpc_message.get_element (1);
 -- 
-2.42.0
+2.47.1
 
