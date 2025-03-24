@@ -1,0 +1,27 @@
+From cf32f1b193643eae7c453b287b0bc9d90f3acfbe Mon Sep 17 00:00:00 2001
+From: doself <fallingdown_yeah.net>
+Date: Tue, 5 Nov 2024 12:59:03 +0800
+Subject: [PATCH] bypass_runtime_check
+
+---
+ bindings/gumjs/generate-runtime.py | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/bindings/gumjs/generate-runtime.py b/bindings/gumjs/generate-runtime.py
+index 0b58a0f4..209d441e 100644
+--- a/bindings/gumjs/generate-runtime.py
++++ b/bindings/gumjs/generate-runtime.py
+@@ -56,6 +56,10 @@ def generate_runtime(output_dir, priv_dir, input_dir, gum_dir, capstone_incdir,
+                        capture_output=True,
+                        cwd=priv_dir,
+                        check=True)
++        
++        js_dir = output_dir / "node_modules" / "frida-java-bridge" / "lib" 
++        subprocess.run("sed -i '/Interceptor.attach(prettyMethod.impl, artController.hooks.ArtMethod.prettyMethod);/,/Interceptor.flush();/{d}' %s" % (js_dir / "android.js"), shell=True)
++        subprocess.run("sed -i 's/Current thread is not attached to the Java VM; please move this code inside a Java.perform() callback/cUrrent th^ead 1s n0t attAched t0 tHe ja{a v3; p1ease m0ve th1s c0de 1ns1de a JbAb.perf0rm[] ca11back/g ' %s" % (js_dir / "vm.js"), shell=True)
+ 
+     runtime_reldir = Path("runtime")
+     runtime_srcdir = input_dir / runtime_reldir
+-- 
+2.36.0.windows.1
+
