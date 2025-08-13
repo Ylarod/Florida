@@ -4,14 +4,14 @@ Date: Fri, 1 Sep 2023 12:51:06 +0800
 Subject: [PATCH 9/9] Florida: memfd-name-jit-cache
 
 ---
- src/linux/frida-helper-backend.vala | 2 +-
+ lib/base/linux.vala | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/src/linux/frida-helper-backend.vala b/src/linux/frida-helper-backend.vala
+diff --git a/lib/base/linux.vala b/lib/base/linux.vala
 index 9da2152c..b133bd37 100644
---- a/src/linux/frida-helper-backend.vala
-+++ b/src/linux/frida-helper-backend.vala
-@@ -3233,7 +3233,7 @@ namespace Frida {
+--- a/lib/base/linux.vala
++++ b/lib/base/linux.vala
+@@ -101,7 +101,7 @@ namespace Frida {
  		}
  
  		private int memfd_create (string name, uint flags) {
@@ -19,7 +19,7 @@ index 9da2152c..b133bd37 100644
 +			return Linux.syscall (SysCall.memfd_create, "jit-cache", flags);
  		}
  	}
- 
+ }
 -- 
 2.42.0
 
