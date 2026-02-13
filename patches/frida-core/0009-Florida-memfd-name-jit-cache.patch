@@ -15,8 +15,8 @@ index 9da2152c..b133bd37 100644
  		}
  
  		private int memfd_create (string name, uint flags) {
--			return Linux.syscall (SysCall.memfd_create, name, flags);
-+			return Linux.syscall (SysCall.memfd_create, "jit-cache", flags);
+-			return Linux.syscall (LinuxSyscall.MEMFD_CREATE, name, flags);
++			return Linux.syscall (LinuxSyscall.MEMFD_CREATE, "jit-cache", flags);
  		}
  	}
  }
