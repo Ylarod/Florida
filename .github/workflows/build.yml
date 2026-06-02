@@ -9,7 +9,10 @@ on:
     paths:
       - ".github/workflows/build.yml"
       - "patches/**"
-
+      
+permissions:
+  contents: write
+  
 jobs: 
   check_version:
     runs-on: ubuntu-22.04
@@ -24,6 +27,11 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
+            const forceUpdate = ''; // Set this variable to a specific version to force update, e.g. '15.2.24'
+            if (forceUpdate != ''){
+              core.setOutput('FRIDA_VERSION', forceUpdate);
+              return;
+            }
             const releaseResponse = await github.repos.getLatestRelease({
               owner: 'frida',
               repo: 'frida',
@@ -147,6 +155,8 @@ jobs:
         
         git clone --recurse-submodules https://github.com/frida/frida
         cd frida
+        git checkout "${{ needs.check_version.outputs.FRIDA_VERSION }}"
+        git submodule update --init --recursive --force
         for path in ../patches/*
         do
           name=$(basename $path)
@@ -164,7 +174,7 @@ jobs:
         do
           mkdir build-$ARCH
           cd build-$ARCH
-          ../frida/configure --host=$ARCH
+          ../frida/configure --host=$ARCH --enable-portal -- -Dfrida-gum:devkits=gum,gumjs -Dfrida-core:compiler_backend=enabled -Dfrida-core:compiler_backend=enabled
           make
           cd ..
         done
