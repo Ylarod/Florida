@@ -8,10 +8,10 @@ Subject: [PATCH 1/9] Florida: string_frida_rpc
  1 file changed, 12 insertions(+), 3 deletions(-)
 
 diff --git a/lib/base/rpc.vala b/lib/base/rpc.vala
-index 8990b70e..d5acfebd 100644
+index 2e20dba1..b8d3350d 100644
 --- a/lib/base/rpc.vala
 +++ b/lib/base/rpc.vala
-@@ -11,13 +11,22 @@ namespace Frida {
+@@ -17,6 +17,15 @@ namespace Frida {
  			Object (peer: peer);
  		}
  
@@ -24,9 +24,10 @@ index 8990b70e..d5acfebd 100644
 +			}
 +		}
 +
- 		public async Json.Node call (string method, Json.Node[] args, Bytes? data, Cancellable? cancellable) throws Error, IOError {
- 			string request_id = Uuid.string_random ();
- 
+ 		/**
+ 		 * Calls a remote method and waits for its result.
+ 		 *
+@@ -30,7 +39,7 @@ namespace Frida {
  			var request = new Json.Builder ();
  			request
  				.begin_array ()
@@ -35,16 +36,16 @@ index 8990b70e..d5acfebd 100644
  				.add_string_value (request_id)
  				.add_string_value ("call")
  				.add_string_value (method)
-@@ -70,7 +79,7 @@ namespace Frida {
- 		}
- 
+@@ -83,7 +92,7 @@ namespace Frida {
+ 		 * @return true if the message was an RPC message and was handled
+ 		 */
  		public bool try_handle_message (string json) {
 -			if (json.index_of ("\"frida:rpc\"") == -1)
 +			if (json.index_of (getRpcStr(true)) == -1)
  				return false;
  
  			var parser = new Json.Parser ();
-@@ -99,7 +108,7 @@ namespace Frida {
+@@ -112,7 +121,7 @@ namespace Frida {
  				return false;
  
  			string? type = rpc_message.get_element (0).get_string ();

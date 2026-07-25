@@ -10,10 +10,10 @@ Subject: [PATCH 3/9] Florida: symbol_frida_agent_main
  src/freebsd/freebsd-host-session.vala |  2 +-
  src/linux/linux-host-session.vala     |  2 +-
  src/qnx/qnx-host-session.vala         |  2 +-
- src/windows/windows-host-session.vala |  2 +-
+ src/windows/windows-host-session.vala |  4 ++--
  tests/test-agent.vala                 |  2 +-
  tests/test-injector.vala              |  2 +-
- 9 files changed, 35 insertions(+), 8 deletions(-)
+ 9 files changed, 36 insertions(+), 9 deletions(-)
  create mode 100644 src/anti-anti-frida.py
 
 diff --git a/src/agent-container.vala b/src/agent-container.vala
@@ -116,16 +116,22 @@ index 69f2995f..a4e59ab2 100644
  			injectee_by_pid[pid] = id;
  
 diff --git a/src/windows/windows-host-session.vala b/src/windows/windows-host-session.vala
-index 67f1f3ef..518cd256 100644
+index 0c0dcf43..076d91f4 100644
 --- a/src/windows/windows-host-session.vala
 +++ b/src/windows/windows-host-session.vala
-@@ -274,7 +274,7 @@ namespace Frida {
- 			var stream_request = Pipe.open (t.local_address, cancellable);
- 
+@@ -252,11 +252,11 @@ namespace Frida {
  			var winjector = injector as Winjector;
+ #if HAVE_EMBEDDED_ASSETS
 -			var id = yield winjector.inject_library_resource (pid, agent, "frida_agent_main",
 +			var id = yield winjector.inject_library_resource (pid, agent, "main",
  				make_agent_parameters (pid, t.remote_address, options), cancellable);
+ #else
+ 			var id = yield winjector.inject_library_file_with_template (pid,
+-				installed_agent_path_template (), "frida_agent_main",
++				installed_agent_path_template (), "main",
+ 				make_agent_parameters (pid, t.remote_address, options),
+ 				installed_agent_dependencies (), cancellable);
+ #endif
  			injectee_by_pid[pid] = id;
  
 diff --git a/tests/test-agent.vala b/tests/test-agent.vala
@@ -156,4 +162,3 @@ index 03c219e6..a7720c3d 100644
  				assert_not_reached ();
 -- 
 2.42.0
-
