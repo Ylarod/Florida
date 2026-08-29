@@ -11,27 +11,15 @@ on:
       - "patches/**"
 
 jobs: 
-  check_version:
+    check_version:
     runs-on: ubuntu-22.04
-
     outputs:
-      FRIDA_VERSION: ${{ steps.pullFridaLatestRelease.outputs.FRIDA_VERSION }}
+      FRIDA_VERSION: ${{ steps.set_version.outputs.FRIDA_VERSION }}
       ALREADY_RELEASE: ${{ steps.checkReleaseVersion.outputs.ALREADY_RELEASE }}
     steps:
-      - name: Pull Frida Latest Release
-        id: pullFridaLatestRelease
-        uses: actions/github-script@v3
-        with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
-          script: |
-            const releaseResponse = await github.repos.getLatestRelease({
-              owner: 'frida',
-              repo: 'frida',
-            })
-            const {
-              data: { tag_name: ver }
-            } = releaseResponse;
-            core.setOutput('FRIDA_VERSION', ver);
+      - name: Set Fixed Version
+        id: set_version
+        run: echo "FRIDA_VERSION=17.9.1" >> $GITHUB_OUTPUT
 
       - name: Split Repository Name
         id: split_name
@@ -147,6 +135,8 @@ jobs:
         
         git clone --recurse-submodules https://github.com/frida/frida
         cd frida
+        git checkout 17.9.1
+        git submodule update --init --recursive
         for path in ../patches/*
         do
           name=$(basename $path)
