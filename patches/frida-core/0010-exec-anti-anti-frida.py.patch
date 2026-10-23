@@ -16,8 +16,8 @@ index 1cdd46da..4459b9c1 100644
              else:
                  embedded_agent.write_bytes(b"")
 +            import os
-+            custom_script=str(output_dir)+"/../../../../frida/subprojects/frida-core/src/anti-anti-frida.py"
-+            return_code = os.system("python3 "+custom_script+" "+str(priv_dir / f"frida-agent-{flavor}.so"))
++            custom_script=Path(__file__).resolve().parent / "anti-anti-frida.py"
++            return_code = os.system("python3 "+str(custom_script)+" "+str(priv_dir / f"frida-agent-{flavor}.so"))
 +            if return_code == 0:
 +                print("anti-anti-frida finished")
 +            else:

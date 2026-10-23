@@ -10,9 +10,12 @@ on:
       - ".github/workflows/build.yml"
       - "patches/**"
 
+permissions:
+  contents: write
+
 jobs: 
   check_version:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
 
     outputs:
       FRIDA_VERSION: ${{ steps.pullFridaLatestRelease.outputs.FRIDA_VERSION }}
@@ -86,7 +89,7 @@ jobs:
 
   create_release:
     needs: check_version
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     if: needs.check_version.outputs.ALREADY_RELEASE != '1'
 
     steps:
@@ -101,7 +104,7 @@ jobs:
           prerelease: false
 
   android_build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     needs: [check_version, create_release]
 
     steps:
@@ -125,10 +128,10 @@ jobs:
         local-cache: false
         link-to-sdk: true
 
-    - name: Set up Python 3.9
+    - name: Set up Python 3.12
       uses: actions/setup-python@v4
       with:
-        python-version: 3.9
+        python-version: "3.12"
 
     - name: install dependencies
       run: |
@@ -145,7 +148,7 @@ jobs:
         export ANDROID_NDK_ROOT=${{ steps.setup-ndk.outputs.ndk-path }}
         echo "ANDROID_NDK_ROOT=$ANDROID_NDK_ROOT"
         
-        git clone --recurse-submodules https://github.com/frida/frida
+        git clone --recurse-submodules --branch ${{ needs.check_version.outputs.FRIDA_VERSION }} https://github.com/frida/frida
         cd frida
         for path in ../patches/*
         do
